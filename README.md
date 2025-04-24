@@ -42,4 +42,6 @@ pip install -r requirements.txt
 ### Clone the Repo.
 ```bash
 https://github.com/VyomJain6904/FindIt
+cd FindIt
+python3 findit.py -h 
 ```
