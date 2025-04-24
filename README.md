@@ -37,3 +37,9 @@ You can install the required Python libraries using pip:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Clone the Repo.
+```bash
+https://github.com/VyomJain6904/FindIt
+```
