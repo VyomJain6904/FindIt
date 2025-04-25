@@ -31,17 +31,17 @@
     * **macOS (using Homebrew):** `brew install nmap`
     * **Windows:** Download from [nmap.org](https://nmap.org/download.html)
 
+### Clone the Repo.
+```bash
+https://github.com/VyomJain6904/FindIt
+cd FindIt
+python3 findit.py -h 
+```
+
 ### Python Libraries:
 
 You can install the required Python libraries using pip:
 
 ```bash
 pip install -r requirements.txt
-```
-
-### Clone the Repo.
-```bash
-https://github.com/VyomJain6904/FindIt
-cd FindIt
-python3 findit.py -h 
 ```
