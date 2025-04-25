@@ -43,5 +43,5 @@ python3 findit.py -h
 You can install the required Python libraries using pip:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt --break-system-packages
 ```
