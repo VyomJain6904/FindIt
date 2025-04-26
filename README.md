@@ -35,13 +35,20 @@
 ```bash
 https://github.com/VyomJain6904/FindIt
 cd FindIt
-python3 findit.py -h 
+chmod +x findit.py
 ```
 
 ### Python Libraries:
-
 You can install the required Python libraries using pip:
-
 ```bash
 pip install -r requirements.txt --break-system-packages
+```
+
+### Add it to Executable directory
+```bash
+sudo mv findIt.py /usr/local/bin/findIt
+```
+### Now you can run it from anywhere
+```bash
+findIt -h
 ```
