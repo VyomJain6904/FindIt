@@ -46,9 +46,9 @@ pip install -r requirements.txt --break-system-packages
 
 ### Add it to Executable directory
 ```bash
-sudo mv findIt.py /usr/local/bin/findIt
+sudo mv findIt.py /usr/local/bin/findIt.py
 ```
 ### Now you can run it from anywhere
 ```bash
-findIt -h
+findIt.py -h
 ```
