@@ -390,7 +390,7 @@ class FindIt:
             headers = {'User-Agent': 'Mozilla/5.0'}
             response = requests.head(url, timeout=self.timeout, allow_redirects=False, headers=headers, verify=False) # Use HEAD, don't follow redirects initially
             # Consider 2xx and 3xx as potentially interesting directories initially
-            # We will filter 301 later in the calling function
+            # We will filter 301 & 302 & 307 later in the calling function
             if 200 <= response.status_code < 400:
                 return url, response.status_code
             # Handle 403 Forbidden - might still indicate a directory exists
@@ -461,8 +461,8 @@ class FindIt:
                         try:
                             url, status_code = future.result()
                             # --- MODIFICATION HERE ---
-                            # Filter out status code 301 before adding to results
-                            if url and status_code and status_code != 301:
+                            # Filter out status code 301 & 302 & 307 before adding to results
+                            if url and status_code and status_code not in [301, 302, 307]:
                                 found_dirs_for_target.append({'url': url, 'status': status_code})
                                 if self.verbose:
                                      # Decide verbosity for non-200 codes (like 403)
@@ -470,8 +470,8 @@ class FindIt:
                                           self.console.print(f"[green][+] Found Directory: {url} (Status: {status_code})")
                                      else: # e.g., 403 might still be interesting
                                           self.console.print(f"[yellow][?] Potential Directory: {url} (Status: {status_code})")
-                            elif url and status_code == 301 and self.verbose:
-                                 self.console.print(f"[grey][-] Skipping Redirect (301): {url}") # Verbose only
+                            elif url and status_code == 301 & 302 & 307 and self.verbose:
+                                 self.console.print(f"[grey][-] Skipping Redirect (301 & 302 & 307): {url}") # Verbose only
                         except Exception as e:
                              directory = future_to_dir[future]
                              if self.verbose:
@@ -490,10 +490,10 @@ class FindIt:
                     table.add_row(item['url'], str(item['status']))
                 self.console.print(table)
             # else:
-            #     if self.verbose: self.console.print(f"[yellow][-] No non-301 directories found for {base_url}")
+            #     if self.verbose: self.console.print(f"[yellow][-] No non-301 & 302 & 307 directories found for {base_url}")
 
         if not found_any_dirs:
-            self.console.print("[yellow][-] No interesting web directories found (excluding 301 redirects).")
+            self.console.print("[yellow][-] No interesting web directories found (excluding 301 & 302 & 307 redirects).")
 
 
     def check_cloud_buckets(self):
@@ -703,7 +703,7 @@ class FindIt:
                     self.console.print(table)
 
         if self.results.get('directories'):
-             self.console.print("\n[green][+] Found Web Directories (excluding 301):[/]")
+             self.console.print("\n[green][+] Found Web Directories (excluding 301 & 302 & 307):[/]")
              any_dirs_printed = False
              for base_url, dirs in sorted(self.results['directories'].items()):
                   if dirs:
@@ -797,7 +797,7 @@ class FindIt:
                          f.write("\n")
 
                     if self.results.get('directories'):
-                         f.write("Found Web Directories (excluding 301):\n")
+                         f.write("Found Web Directories (excluding 301 & 302 & 307):\n")
                          for base_url, dirs in sorted(self.results['directories'].items()):
                               if dirs:
                                    f.write(f"  {base_url}:\n")
@@ -845,7 +845,7 @@ class FindIt:
             self.detect_technologies()
 
         # 5. Directory Brute Force - uses target + subdomains
-        self.brute_force_directories() # Now filters 301 internally
+        self.brute_force_directories() # Now filters 301 & 302 & 307 internally
 
         # 6. Cloud Bucket Checks
         self.check_cloud_buckets()
