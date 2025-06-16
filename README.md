@@ -31,9 +31,24 @@
     * **macOS (using Homebrew):** `brew install nmap`
     * **Windows:** Download from [nmap.org](https://nmap.org/download.html)
 
-### Python Libraries:
-
-You can install the required Python libraries using pip:
-
+### Clone the Repo.
 ```bash
-pip install -r requirements.txt
+https://github.com/VyomJain6904/FindIt
+cd FindIt
+chmod +x findit.py
+```
+
+### Python Libraries:
+You can install the required Python libraries using pip:
+```bash
+pip install -r requirements.txt --break-system-packages
+```
+
+### Add it to Executable directory
+```bash
+sudo mv findIt.py /usr/local/bin/findIt.py
+```
+### Now you can run it from anywhere
+```bash
+findIt.py -h
+```
